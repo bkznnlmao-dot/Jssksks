@@ -165,6 +165,182 @@ AimbotBtn.MouseButton1Click:Connect(function()
     end
 end)
 
+-- 3. Tiempo en base para todos los jugadores
+local baseTimes = {}
+local baseTimerActive = false
+local baseTimerConn
+
+local function updateAllBaseTimers()
+    for _, player in ipairs(Players:GetPlayers()) do
+        local bases = Workspace:FindFirstChild("Bases")
+        local myBase = bases and bases:FindFirstChild(player.Name)
+        local inBase = false
+        if myBase and myBase:FindFirstChild("CollectZone") and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            inBase = (player.Character.HumanoidRootPart.Position - myBase.CollectZone.Position).magnitude < 10
+        end
+        baseTimes[player.Name] = baseTimes[player.Name] or 0
+        if inBase then
+            baseTimes[player.Name] = baseTimes[player.Name] + 1
+        else
+            baseTimes[player.Name] = 0
+        end
+        -- Puedes mostrar esto en algún label específico por jugador o en la consola:
+        if player == Players.LocalPlayer then
+            BaseTimeLabel.Text = "Base Time: " .. baseTimes[player.Name] .. "s"
+        end
+    end
+end
+
+BaseTimerBtn.MouseButton1Click:Connect(function()
+    baseTimerActive = not baseTimerActive
+    BaseTimerBtn.Text = baseTimerActive and "TIEMPO BASE [ON]" or "TIEMPO BASE"
+    notify("Miranda Tween+", baseTimerActive and "Timer de base activo" or "Timer de base desactivado")
+    if baseTimerActive then
+        baseTimerConn = RunService.Heartbeat:Connect(updateAllBaseTimers)
+    else
+        if baseTimerConn then baseTimerConn:Disconnect() end
+        for name,_ in pairs(baseTimes) do baseTimes[name]=0 end
+        BaseTimeLabel.Text = "Base Time: 0s"
+    end
+end)
+
+-- 4. Ver Invisibles
+ShowInvisBtn.MouseButton1Click:Connect(function()
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= Players.LocalPlayer and plr.Character then
+            for _, part in ipairs(plr.Character:GetChildren()) do
+                if part:IsA("BasePart") and part.Transparency == 1 then
+                    part.Transparency = 0.5 -- Semi visible localmente
+                    part.Color = Color3.fromRGB(255, 255, 0) -- Amarillo para resaltar
+                end
+            end
+        end
+    end
+    notify("Miranda Tween+", "Jugadores invisibles resaltados")
+end)
+
+-- 5. Infinity Jump corregido
+local infJumpEnabled = false
+InfinityJumpBtn.MouseButton1Click:Connect(function()
+    infJumpEnabled = not infJumpEnabled
+    InfinityJumpBtn.Text = infJumpEnabled and "INFINITY JUMP [ON]" or "INFINITY JUMP"
+    notify("Miranda Tween+", infJumpEnabled and "Infinity Jump activado" or "Infinity Jump desactivado")
+end)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if infJumpEnabled and input.KeyCode == Enum.KeyCode.Space then
+        local player = Players.LocalPlayer
+        if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+            player.Character:FindFirstChildOfClass("Humanoid").UseJumpPower = true
+            player.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end
+end)
+
+-- Resto del código original...
+-- Si necesitas que corrija más funciones, dímelo.local SubTitle = Instance.new("TextLabel")
+SubTitle.Parent = MainFrame
+SubTitle.BackgroundTransparency = 1
+SubTitle.Position = UDim2.new(0, 0, 0, 33)
+SubTitle.Size = UDim2.new(1, 0, 0, 18)
+SubTitle.Font = Enum.Font.Gotham
+SubTitle.Text = "TIKTOK: @mirandacallruim"
+SubTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+SubTitle.TextScaled = true
+
+local function createButton(parent, props)
+    local btn = Instance.new("TextButton")
+    btn.Parent = parent
+    btn.BackgroundColor3 = props.bg or Color3.fromRGB(255, 0, 0)
+    btn.Position = props.pos
+    btn.Size = props.size or UDim2.new(0.9, 0, 0, 32)
+    btn.Font = Enum.Font.GothamBold
+    btn.Text = props.text or "Button"
+    btn.TextColor3 = props.textColor or Color3.fromRGB(255, 255, 255)
+    btn.TextScaled = true
+    return btn
+end
+
+-- Botones
+local BaseTeleportBtn = createButton(MainFrame, {text = "AUTO BASE", pos = UDim2.new(0.05,0,0.23,0), size = UDim2.new(0.43,0,0,32)})
+local AimbotBtn = createButton(MainFrame, {text = "AIMBOT", pos = UDim2.new(0.52,0,0.23,0), size = UDim2.new(0.43,0,0,32)})
+local BaseTimerBtn = createButton(MainFrame, {text = "TIEMPO BASE", pos = UDim2.new(0.05,0,0.39,0)})
+local ShowInvisBtn = createButton(MainFrame, {text = "VER INVISIBLES", pos = UDim2.new(0.05,0,0.53,0)})
+local InfinityJumpBtn = createButton(MainFrame, {text = "INFINITY JUMP", pos = UDim2.new(0.05,0,0.67,0)})
+
+local BaseTimeLabel = Instance.new("TextLabel")
+BaseTimeLabel.Parent = MainFrame
+BaseTimeLabel.Position = UDim2.new(0, 0, 0.85, 0)
+BaseTimeLabel.Size = UDim2.new(1, 0, 0, 32)
+BaseTimeLabel.BackgroundTransparency = 1
+BaseTimeLabel.Font = Enum.Font.GothamBold
+BaseTimeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+BaseTimeLabel.TextScaled = true
+BaseTimeLabel.Text = "Base Time: 0s"
+
+-- Abrir/cerrar menú
+MiniButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+---------------------------
+-- FUNCIONES DE HACK
+---------------------------
+
+-- 1. Auto Base
+local autoBase = false
+local autoBaseConn
+local function teleportToBase()
+    local player = Players.LocalPlayer
+    local bases = Workspace:FindFirstChild("Bases")
+    if bases then
+        local myBase = bases:FindFirstChild(player.Name)
+        if myBase and myBase:FindFirstChild("CollectZone") and player.Character then
+            player.Character:MoveTo(myBase.CollectZone.Position)
+        end
+    end
+end
+
+BaseTeleportBtn.MouseButton1Click:Connect(function()
+    autoBase = not autoBase
+    BaseTeleportBtn.Text = autoBase and "AUTO BASE [ON]" or "AUTO BASE"
+    notify("Miranda Tween+", autoBase and "Auto Base Activo" or "Auto Base Desactivado")
+    if autoBase then
+        autoBaseConn = RunService.Heartbeat:Connect(teleportToBase)
+    else
+        if autoBaseConn then autoBaseConn:Disconnect() end
+    end
+end)
+
+-- 2. Aimbot
+local function getClosestPlayer()
+    local lp = Players.LocalPlayer
+    local closest, dist = nil, math.huge
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= lp and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local magnitude = (lp.Character.HumanoidRootPart.Position - plr.Character.HumanoidRootPart.Position).magnitude
+            if magnitude < dist then
+                dist = magnitude
+                closest = plr
+            end
+        end
+    end
+    return closest
+end
+
+AimbotBtn.MouseButton1Click:Connect(function()
+    local target = getClosestPlayer()
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        Workspace.CurrentCamera.CFrame = CFrame.new(Workspace.CurrentCamera.CFrame.Position, target.Character.HumanoidRootPart.Position)
+        AimbotBtn.Text = "AIMBOT [ON]"
+        wait(1)
+        AimbotBtn.Text = "AIMBOT"
+        notify("Miranda Tween+", "Aimbot ejecutado")
+    else
+        notify("Miranda Tween+", "No hay jugadores cerca")
+    end
+end)
+
 -- 3. Tiempo en base
 local baseTime = 0
 local baseTimerActive = false
