@@ -1,0 +1,106 @@
+-- Senko's Hub GUI para Roba un Brainrot
+
+if game:GetService("CoreGui"):FindFirstChild("SenkoHub") then
+    game:GetService("CoreGui"):FindFirstChild("SenkoHub"):Destroy()
+end
+
+local SenkoHub = Instance.new("ScreenGui")
+SenkoHub.Name = "SenkoHub"
+SenkoHub.Parent = game:GetService("CoreGui")
+SenkoHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local Frame = Instance.new("Frame")
+Frame.Parent = SenkoHub
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+Frame.BorderSizePixel = 3
+Frame.Position = UDim2.new(0.5, -125, 0.5, -135)
+Frame.Size = UDim2.new(0, 250, 0, 250)
+Frame.Active = true
+Frame.Draggable = true
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Frame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Senko's Hub"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+local ESPGod = Instance.new("TextButton")
+ESPGod.Parent = Frame
+ESPGod.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPGod.Position = UDim2.new(0.05, 0, 0.23, 0)
+ESPGod.Size = UDim2.new(0.43, 0, 0, 32)
+ESPGod.Font = Enum.Font.GothamBold
+ESPGod.Text = "ESP GOD"
+ESPGod.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPGod.TextScaled = true
+
+local ESPSecret = Instance.new("TextButton")
+ESPSecret.Parent = Frame
+ESPSecret.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPSecret.Position = UDim2.new(0.52, 0, 0.23, 0)
+ESPSecret.Size = UDim2.new(0.43, 0, 0, 32)
+ESPSecret.Font = Enum.Font.GothamBold
+ESPSecret.Text = "ESP SECRET"
+ESPSecret.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPSecret.TextScaled = true
+
+local ESPBase = Instance.new("TextButton")
+ESPBase.Parent = Frame
+ESPBase.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPBase.Position = UDim2.new(0.05, 0, 0.39, 0)
+ESPBase.Size = UDim2.new(0.9, 0, 0, 32)
+ESPBase.Font = Enum.Font.Gotham
+ESPBase.Text = "ESP BASE"
+ESPBase.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPBase.TextScaled = true
+
+local ESPPlayer = Instance.new("TextButton")
+ESPPlayer.Parent = Frame
+ESPPlayer.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPPlayer.Position = UDim2.new(0.05, 0, 0.53, 0)
+ESPPlayer.Size = UDim2.new(0.9, 0, 0, 32)
+ESPPlayer.Font = Enum.Font.Gotham
+ESPPlayer.Text = "ESP PLAYER"
+ESPPlayer.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPPlayer.TextScaled = true
+
+local InstaSteal = Instance.new("TextButton")
+InstaSteal.Parent = Frame
+InstaSteal.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+InstaSteal.Position = UDim2.new(0.05, 0, 0.67, 0)
+InstaSteal.Size = UDim2.new(0.9, 0, 0, 32)
+InstaSteal.Font = Enum.Font.Gotham
+InstaSteal.Text = "Senko Insta Steal"
+InstaSteal.TextColor3 = Color3.fromRGB(255, 255, 255)
+InstaSteal.TextScaled = true
+
+-- Conecta tus funciones aquí si quieres que los botones hagan algo:
+ESPGod.MouseButton1Click:Connect(function()
+    -- Tu función ESP GOD
+end)
+ESPSecret.MouseButton1Click:Connect(function()
+    -- Tu función ESP SECRET
+end)
+ESPBase.MouseButton1Click:Connect(function()
+    -- Tu función ESP BASE
+end)
+ESPPlayer.MouseButton1Click:Connect(function()
+    -- Tu función ESP PLAYER
+end)
+InstaSteal.MouseButton1Click:Connect(function()
+    -- Tu función Senko Insta Steal
+end)
+
+-- Para abrir/cerrar el menú usa la tecla RightControl:
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(input, gp)
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode.RightControl then
+        SenkoHub.Enabled = not SenkoHub.Enabled
+    end
+end)
