@@ -1,4 +1,5 @@
--- Miranda Tween+ Hub con menú igual a las imágenes y teletransporte automático a la base usando tu función.
+-- Miranda Tween+ Hub (fix botón de abrir/cerrar menú)
+-- El botón "+" siempre permite abrir/cerrar el menú principal correctamente.
 
 if game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub") then
     game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub"):Destroy()
@@ -63,6 +64,76 @@ ESPGodBtn.Size = UDim2.new(0.43,0,0,32)
 ESPGodBtn.Font = Enum.Font.GothamBold
 ESPGodBtn.Text = "ESP GOD"
 ESPGodBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPGodBtn.TextScaled = true
+
+local ESPSecretBtn = Instance.new("TextButton")
+ESPSecretBtn.Parent = MainFrame
+ESPSecretBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPSecretBtn.Position = UDim2.new(0.52,0,0.23,0)
+ESPSecretBtn.Size = UDim2.new(0.43,0,0,32)
+ESPSecretBtn.Font = Enum.Font.GothamBold
+ESPSecretBtn.Text = "ESP SECRET"
+ESPSecretBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPSecretBtn.TextScaled = true
+
+local ESPBaseBtn = Instance.new("TextButton")
+ESPBaseBtn.Parent = MainFrame
+ESPBaseBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPBaseBtn.Position = UDim2.new(0.05,0,0.39,0)
+ESPBaseBtn.Size = UDim2.new(0.9,0,0,32)
+ESPBaseBtn.Font = Enum.Font.GothamBold
+ESPBaseBtn.Text = "ESP BASE"
+ESPBaseBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPBaseBtn.TextScaled = true
+
+local ESPPlayerBtn = Instance.new("TextButton")
+ESPPlayerBtn.Parent = MainFrame
+ESPPlayerBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPPlayerBtn.Position = UDim2.new(0.05,0,0.53,0)
+ESPPlayerBtn.Size = UDim2.new(0.9,0,0,32)
+ESPPlayerBtn.Font = Enum.Font.GothamBold
+ESPPlayerBtn.Text = "ESP PLAYER"
+ESPPlayerBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPPlayerBtn.TextScaled = true
+
+local InstaStealBtn = Instance.new("TextButton")
+InstaStealBtn.Parent = MainFrame
+InstaStealBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+InstaStealBtn.Position = UDim2.new(0.05,0,0.67,0)
+InstaStealBtn.Size = UDim2.new(0.9,0,0,32)
+InstaStealBtn.Font = Enum.Font.GothamBold
+InstaStealBtn.Text = "Miranda Insta Steal"
+InstaStealBtn.TextColor3 = Color3.fromRGB(255,255,255)
+InstaStealBtn.TextScaled = true
+
+-- Fix para que el botón "+" siempre abra/cierre el menú correctamente
+MiniButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+-- Función real de teletransporte a la base usando tu lógica por PlaceId
+local placeId = game.PlaceId
+local function MirandaInstaSteal()
+    if placeId == 109983668079237 or placeId == 96342491571673 or placeId == 128762245270197 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/S4/refs/heads/main/Stel"))()
+    elseif placeId == 126884695634066 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/Brok/refs/heads/main/Main-grow"))()
+    else
+        pcall(function()
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Miranda Tween+",
+                Duration = 10,
+                Text = "Este botón solo funciona en grow a garden o steal a brainrot."
+            })
+        end)
+    end
+end
+
+InstaStealBtn.MouseButton1Click:Connect(function()
+    MirandaInstaSteal()
+end)
+
+-- Puedes agregar las demás funciones ESP aquí si quieres que sean funcionales.ESPGodBtn.TextColor3 = Color3.fromRGB(255,255,255)
 ESPGodBtn.TextScaled = true
 
 local ESPSecretBtn = Instance.new("TextButton")
