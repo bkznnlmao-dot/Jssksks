@@ -1,0 +1,265 @@
+-- Senko's Hub GUI funcional para Roba un Brainrot
+
+if game:GetService("CoreGui"):FindFirstChild("SenkoHub") then
+    game:GetService("CoreGui"):FindFirstChild("SenkoHub"):Destroy()
+end
+
+local SenkoHub = Instance.new("ScreenGui")
+SenkoHub.Name = "SenkoHub"
+SenkoHub.Parent = game:GetService("CoreGui")
+SenkoHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local Frame = Instance.new("Frame")
+Frame.Parent = SenkoHub
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+Frame.BorderSizePixel = 3
+Frame.Position = UDim2.new(0.5, -125, 0.5, -135)
+Frame.Size = UDim2.new(0, 250, 0, 250)
+Frame.Active = true
+Frame.Draggable = true
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Frame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Senko's Hub"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+local ESPGod = Instance.new("TextButton")
+ESPGod.Parent = Frame
+ESPGod.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPGod.Position = UDim2.new(0.05, 0, 0.23, 0)
+ESPGod.Size = UDim2.new(0.43, 0, 0, 32)
+ESPGod.Font = Enum.Font.GothamBold
+ESPGod.Text = "ESP GOD"
+ESPGod.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPGod.TextScaled = true
+
+local ESPSecret = Instance.new("TextButton")
+ESPSecret.Parent = Frame
+ESPSecret.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPSecret.Position = UDim2.new(0.52, 0, 0.23, 0)
+ESPSecret.Size = UDim2.new(0.43, 0, 0, 32)
+ESPSecret.Font = Enum.Font.GothamBold
+ESPSecret.Text = "ESP SECRET"
+ESPSecret.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPSecret.TextScaled = true
+
+local ESPBase = Instance.new("TextButton")
+ESPBase.Parent = Frame
+ESPBase.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPBase.Position = UDim2.new(0.05, 0, 0.39, 0)
+ESPBase.Size = UDim2.new(0.9, 0, 0, 32)
+ESPBase.Font = Enum.Font.Gotham
+ESPBase.Text = "ESP BASE"
+ESPBase.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPBase.TextScaled = true
+
+local ESPPlayer = Instance.new("TextButton")
+ESPPlayer.Parent = Frame
+ESPPlayer.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPPlayer.Position = UDim2.new(0.05, 0, 0.53, 0)
+ESPPlayer.Size = UDim2.new(0.9, 0, 0, 32)
+ESPPlayer.Font = Enum.Font.Gotham
+ESPPlayer.Text = "ESP PLAYER"
+ESPPlayer.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPPlayer.TextScaled = true
+
+local InstaSteal = Instance.new("TextButton")
+InstaSteal.Parent = Frame
+InstaSteal.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+InstaSteal.Position = UDim2.new(0.05, 0, 0.67, 0)
+InstaSteal.Size = UDim2.new(0.9, 0, 0, 32)
+InstaSteal.Font = Enum.Font.Gotham
+InstaSteal.Text = "Senko Insta Steal"
+InstaSteal.TextColor3 = Color3.fromRGB(255, 255, 255)
+InstaSteal.TextScaled = true
+
+-- FUNCIONES REALES
+
+-- ESP GOD: Box ESP para todos los jugadores
+local espActive = false
+local espBoxes = {}
+
+local function createESP(target)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Size = Vector3.new(3, 6, 3)
+    box.Color3 = Color3.fromRGB(255, 0, 0)
+    box.Transparency = 0.5
+    box.AlwaysOnTop = true
+    box.Adornee = target
+    box.Parent = game:GetService("CoreGui")
+    return box
+end
+
+local function enableESP()
+    espActive = true
+    for _, plr in ipairs(game.Players:GetPlayers()) do
+        if plr ~= game.Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local box = createESP(plr.Character.HumanoidRootPart)
+            espBoxes[plr.Name] = box
+        end
+    end
+end
+
+local function disableESP()
+    espActive = false
+    for _, box in pairs(espBoxes) do
+        box:Destroy()
+    end
+    espBoxes = {}
+end
+
+ESPGod.MouseButton1Click:Connect(function()
+    if not espActive then
+        enableESP()
+        ESPGod.Text = "ESP GOD [ON]"
+    else
+        disableESP()
+        ESPGod.Text = "ESP GOD"
+    end
+end)
+
+-- ESP SECRET: Marca objetos secretos
+local secretEspActive = false
+local secretEspBoxes = {}
+
+local function enableSecretESP()
+    secretEspActive = true
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("BasePart") and obj.Name:lower():find("secret") then
+            local box = createESP(obj)
+            secretEspBoxes[obj.Name] = box
+        end
+    end
+end
+
+local function disableSecretESP()
+    secretEspActive = false
+    for _, box in pairs(secretEspBoxes) do
+        box:Destroy()
+    end
+    secretEspBoxes = {}
+end
+
+ESPSecret.MouseButton1Click:Connect(function()
+    if not secretEspActive then
+        enableSecretESP()
+        ESPSecret.Text = "ESP SECRET [ON]"
+    else
+        disableSecretESP()
+        ESPSecret.Text = "ESP SECRET"
+    end
+end)
+
+-- ESP BASE: Marca todas las bases
+local baseEspActive = false
+local baseEspBoxes = {}
+
+local function enableBaseESP()
+    baseEspActive = true
+    local bases = workspace:FindFirstChild("Bases")
+    if bases then
+        for _, base in ipairs(bases:GetChildren()) do
+            if base:IsA("BasePart") or base:FindFirstChild("CollectZone") then
+                local part = base:FindFirstChild("CollectZone") or base
+                local box = createESP(part)
+                baseEspBoxes[base.Name] = box
+            end
+        end
+    end
+end
+
+local function disableBaseESP()
+    baseEspActive = false
+    for _, box in pairs(baseEspBoxes) do
+        box:Destroy()
+    end
+    baseEspBoxes = {}
+end
+
+ESPBase.MouseButton1Click:Connect(function()
+    if not baseEspActive then
+        enableBaseESP()
+        ESPBase.Text = "ESP BASE [ON]"
+    else
+        disableBaseESP()
+        ESPBase.Text = "ESP BASE"
+    end
+end)
+
+-- ESP PLAYER: Marca a un jugador específico (el primero que no seas tú)
+local playerEspActive = false
+local playerEspBox = nil
+
+ESPPlayer.MouseButton1Click:Connect(function()
+    if not playerEspActive then
+        local target = nil
+        for _, plr in ipairs(game.Players:GetPlayers()) do
+            if plr ~= game.Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                target = plr.Character.HumanoidRootPart
+                break
+            end
+        end
+        if target then
+            playerEspBox = createESP(target)
+            playerEspActive = true
+            ESPPlayer.Text = "ESP PLAYER [ON]"
+        end
+    else
+        if playerEspBox then playerEspBox:Destroy() end
+        playerEspBox = nil
+        playerEspActive = false
+        ESPPlayer.Text = "ESP PLAYER"
+    end
+end)
+
+-- Senko Insta Steal: Teletransporta a tu base con capa láser (ajusta nombre si es diferente)
+InstaSteal.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local backpack = player:FindFirstChild("Backpack")
+    local character = player.Character or player.CharacterAdded:Wait()
+    local hasLaserCape = false
+
+    for _, item in ipairs(backpack:GetChildren()) do
+        if item.Name:lower():find("capa") or item.Name:lower():find("laser") then
+            hasLaserCape = true
+            break
+        end
+    end
+    for _, item in ipairs(character:GetChildren()) do
+        if item.Name:lower():find("capa") or item.Name:lower():find("laser") then
+            hasLaserCape = true
+            break
+        end
+    end
+
+    if hasLaserCape then
+        local bases = workspace:FindFirstChild("Bases")
+        if bases then
+            local myBase = bases:FindFirstChild(player.Name)
+            if myBase and myBase:FindFirstChild("CollectZone") then
+                character:MoveTo(myBase.CollectZone.Position)
+            else
+                warn("No se encontró tu base o zona de colección.")
+            end
+        else
+            warn("No se encontró la carpeta de Bases.")
+        end
+    else
+        warn("No tienes la Capa Láser equipada.")
+    end
+end)
+
+-- Abrir/cerrar el menú con RightControl
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(input, gp)
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode.RightControl then
+        SenkoHub.Enabled = not SenkoHub.Enabled
+    end
+end)
