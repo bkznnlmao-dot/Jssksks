@@ -2,10 +2,13 @@
 local SenkoHub = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
-local BtnTeleportBase = Instance.new("TextButton")
-local BtnAutoTeleport = Instance.new("TextButton")
-local CloseBtn = Instance.new("TextButton")
+local ESPGod = Instance.new("TextButton")
+local ESPSecret = Instance.new("TextButton")
+local ESPBase = Instance.new("TextButton")
+local ESPPlayer = Instance.new("TextButton")
+local InstaSteal = Instance.new("TextButton")
 
+-- Propiedades principales del GUI
 SenkoHub.Name = "SenkoHub"
 SenkoHub.Parent = game.CoreGui
 SenkoHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -15,7 +18,7 @@ MainFrame.Parent = SenkoHub
 MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 MainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
 MainFrame.Position = UDim2.new(0.5, -125, 0.5, -150)
-MainFrame.Size = UDim2.new(0, 250, 0, 300)
+MainFrame.Size = UDim2.new(0, 250, 0, 270)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
@@ -29,40 +32,82 @@ Title.Text = "Senko's Hub"
 Title.TextColor3 = Color3.fromRGB(255, 0, 0)
 Title.TextScaled = true
 
-BtnTeleportBase.Name = "BtnTeleportBase"
-BtnTeleportBase.Parent = MainFrame
-BtnTeleportBase.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-BtnTeleportBase.Position = UDim2.new(0.1, 0, 0.3, 0)
-BtnTeleportBase.Size = UDim2.new(0.8, 0, 0, 40)
-BtnTeleportBase.Font = Enum.Font.Gotham
-BtnTeleportBase.Text = "Ir a tu base con Capa Láser"
-BtnTeleportBase.TextColor3 = Color3.fromRGB(255, 255, 255)
-BtnTeleportBase.TextScaled = true
+ESPGod.Name = "ESPGod"
+ESPGod.Parent = MainFrame
+ESPGod.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPGod.Position = UDim2.new(0.05, 0, 0.23, 0)
+ESPGod.Size = UDim2.new(0.43, 0, 0, 32)
+ESPGod.Font = Enum.Font.GothamBold
+ESPGod.Text = "ESP GOD"
+ESPGod.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPGod.TextScaled = true
 
-BtnAutoTeleport.Name = "BtnAutoTeleport"
-BtnAutoTeleport.Parent = MainFrame
-BtnAutoTeleport.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-BtnAutoTeleport.Position = UDim2.new(0.1, 0, 0.5, 0)
-BtnAutoTeleport.Size = UDim2.new(0.8, 0, 0, 40)
-BtnAutoTeleport.Font = Enum.Font.Gotham
-BtnAutoTeleport.Text = "Auto ir a base con Capa Láser"
-BtnAutoTeleport.TextColor3 = Color3.fromRGB(255, 255, 255)
-BtnAutoTeleport.TextScaled = true
+ESPSecret.Name = "ESPSecret"
+ESPSecret.Parent = MainFrame
+ESPSecret.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPSecret.Position = UDim2.new(0.52, 0, 0.23, 0)
+ESPSecret.Size = UDim2.new(0.43, 0, 0, 32)
+ESPSecret.Font = Enum.Font.GothamBold
+ESPSecret.Text = "ESP SECRET"
+ESPSecret.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPSecret.TextScaled = true
 
-CloseBtn.Name = "CloseBtn"
-CloseBtn.Parent = MainFrame
-CloseBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-CloseBtn.Position = UDim2.new(0.85, 0, 0, 5)
-CloseBtn.Size = UDim2.new(0.12, 0, 0, 30)
-CloseBtn.Font = Enum.Font.Gotham
-CloseBtn.Text = "X"
-CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseBtn.TextScaled = true
+ESPBase.Name = "ESPBase"
+ESPBase.Parent = MainFrame
+ESPBase.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPBase.Position = UDim2.new(0.05, 0, 0.39, 0)
+ESPBase.Size = UDim2.new(0.9, 0, 0, 32)
+ESPBase.Font = Enum.Font.Gotham
+ESPBase.Text = "ESP BASE"
+ESPBase.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPBase.TextScaled = true
 
--- Función para teletransportarse a la base si tienes la Capa Láser
-local function TeleportToBase()
-    local player = game.Players.LocalPlayer
-    local backpack = player:FindFirstChild("Backpack")
+ESPPlayer.Name = "ESPPlayer"
+ESPPlayer.Parent = MainFrame
+ESPPlayer.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ESPPlayer.Position = UDim2.new(0.05, 0, 0.53, 0)
+ESPPlayer.Size = UDim2.new(0.9, 0, 0, 32)
+ESPPlayer.Font = Enum.Font.Gotham
+ESPPlayer.Text = "ESP PLAYER"
+ESPPlayer.TextColor3 = Color3.fromRGB(255, 255, 255)
+ESPPlayer.TextScaled = true
+
+InstaSteal.Name = "InstaSteal"
+InstaSteal.Parent = MainFrame
+InstaSteal.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+InstaSteal.Position = UDim2.new(0.05, 0, 0.67, 0)
+InstaSteal.Size = UDim2.new(0.9, 0, 0, 32)
+InstaSteal.Font = Enum.Font.Gotham
+InstaSteal.Text = "Senko Insta Steal"
+InstaSteal.TextColor3 = Color3.fromRGB(255, 255, 255)
+InstaSteal.TextScaled = true
+
+-- Puedes conectar las funciones reales aquí:
+ESPGod.MouseButton1Click:Connect(function()
+    -- Tu código para ESP GOD
+end)
+ESPSecret.MouseButton1Click:Connect(function()
+    -- Tu código para ESP SECRET
+end)
+ESPBase.MouseButton1Click:Connect(function()
+    -- Tu código para ESP BASE
+end)
+ESPPlayer.MouseButton1Click:Connect(function()
+    -- Tu código para ESP PLAYER
+end)
+InstaSteal.MouseButton1Click:Connect(function()
+    -- Tu código para Senko Insta Steal
+end)
+
+-- Puedes añadir más botones o personalizar los textos fácilmente
+
+-- Si quieres que el menú solo se pueda abrir/ocultar con una tecla:
+local uis = game:GetService("UserInputService")
+uis.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.RightControl then
+        SenkoHub.Enabled = not SenkoHub.Enabled
+    end
+end)    local backpack = player:FindFirstChild("Backpack")
     local character = player.Character or player.CharacterAdded:Wait()
     local hasLaserCape = false
 
