@@ -1,0 +1,120 @@
+-- Senko's Hub para Roba un Brainrot
+local SenkoHub = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local BtnTeleportBase = Instance.new("TextButton")
+local BtnAutoTeleport = Instance.new("TextButton")
+local CloseBtn = Instance.new("TextButton")
+
+SenkoHub.Name = "SenkoHub"
+SenkoHub.Parent = game.CoreGui
+SenkoHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = SenkoHub
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+MainFrame.Position = UDim2.new(0.5, -125, 0.5, -150)
+MainFrame.Size = UDim2.new(0, 250, 0, 300)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+Title.Name = "Title"
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Senko's Hub"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+BtnTeleportBase.Name = "BtnTeleportBase"
+BtnTeleportBase.Parent = MainFrame
+BtnTeleportBase.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+BtnTeleportBase.Position = UDim2.new(0.1, 0, 0.3, 0)
+BtnTeleportBase.Size = UDim2.new(0.8, 0, 0, 40)
+BtnTeleportBase.Font = Enum.Font.Gotham
+BtnTeleportBase.Text = "Ir a tu base con Capa Láser"
+BtnTeleportBase.TextColor3 = Color3.fromRGB(255, 255, 255)
+BtnTeleportBase.TextScaled = true
+
+BtnAutoTeleport.Name = "BtnAutoTeleport"
+BtnAutoTeleport.Parent = MainFrame
+BtnAutoTeleport.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+BtnAutoTeleport.Position = UDim2.new(0.1, 0, 0.5, 0)
+BtnAutoTeleport.Size = UDim2.new(0.8, 0, 0, 40)
+BtnAutoTeleport.Font = Enum.Font.Gotham
+BtnAutoTeleport.Text = "Auto ir a base con Capa Láser"
+BtnAutoTeleport.TextColor3 = Color3.fromRGB(255, 255, 255)
+BtnAutoTeleport.TextScaled = true
+
+CloseBtn.Name = "CloseBtn"
+CloseBtn.Parent = MainFrame
+CloseBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+CloseBtn.Position = UDim2.new(0.85, 0, 0, 5)
+CloseBtn.Size = UDim2.new(0.12, 0, 0, 30)
+CloseBtn.Font = Enum.Font.Gotham
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.TextScaled = true
+
+-- Función para teletransportarse a la base si tienes la Capa Láser
+local function TeleportToBase()
+    local player = game.Players.LocalPlayer
+    local backpack = player:FindFirstChild("Backpack")
+    local character = player.Character or player.CharacterAdded:Wait()
+    local hasLaserCape = false
+
+    -- Buscar la Capa Láser en el Backpack o en el Character
+    for _, item in ipairs(backpack:GetChildren()) do
+        if item.Name:lower():find("capa") or item.Name:lower():find("laser") then
+            hasLaserCape = true
+            break
+        end
+    end
+    for _, item in ipairs(character:GetChildren()) do
+        if item.Name:lower():find("capa") or item.Name:lower():find("laser") then
+            hasLaserCape = true
+            break
+        end
+    end
+
+    if hasLaserCape then
+        -- Buscar la base del jugador (ajusta el nombre si es diferente)
+        local bases = workspace:FindFirstChild("Bases")
+        if bases then
+            local myBase = bases:FindFirstChild(player.Name)
+            if myBase and myBase:FindFirstChild("CollectZone") then
+                character:MoveTo(myBase.CollectZone.Position)
+            else
+                warn("No se encontró tu base o zona de colección.")
+            end
+        else
+            warn("No se encontró la carpeta de Bases.")
+        end
+    else
+        warn("No tienes la Capa Láser equipada.")
+    end
+end
+
+BtnTeleportBase.MouseButton1Click:Connect(function()
+    TeleportToBase()
+end)
+
+local autoTeleport = false
+
+BtnAutoTeleport.MouseButton1Click:Connect(function()
+    autoTeleport = not autoTeleport
+    BtnAutoTeleport.Text = autoTeleport and "Auto ON" or "Auto ir a base con Capa Láser"
+    if autoTeleport then
+        while autoTeleport do
+            TeleportToBase()
+            wait(2) -- cada 2 segundos revisa si tienes la capa y te teleporta
+        end
+    end
+end)
+
+CloseBtn.MouseButton1Click:Connect(function()
+    SenkoHub:Destroy()
+end)
