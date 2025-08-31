@@ -1,0 +1,54 @@
+local placeId = game.PlaceId
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+
+-- ========== Función: Aimbot básico ==========
+function GetClosestPlayerToCursor()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local head = player.Character.Head
+            local screenPos, onScreen = workspace.CurrentCamera:WorldToViewportPoint(head.Position)
+            if onScreen then
+                local dist = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Mouse.X, Mouse.Y)).magnitude
+                if dist < shortestDistance then
+                    shortestDistance = dist
+                    closestPlayer = player
+                end
+            end
+        end
+    end
+    return closestPlayer
+end
+
+function Aimbot()
+    local target = GetClosestPlayerToCursor()
+    if target and target.Character and target.Character:FindFirstChild("Head") then
+        local head = target.Character.Head
+        workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, head.Position)
+    end
+end
+
+-- ========== Menú de consola ==========
+local function showMenu()
+    print("senko's hub 💙 Menu:")
+    print("1. Activar aimbot manual (Aimbot())")
+end
+
+-- ========== Solo cargar en steal a brainrot ==========
+if placeId == 126884695634066 then
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "senko's hub 💙",
+            Duration = 10,
+            Text = "Aimbot listo para steal a brainrot"
+        })
+    end)
+    showMenu()
+    -- Ejemplo de activación: click derecho para aimbot
+    Mouse.Button2Down:Connect(Aimbot)
+else
+    print("Este script solo funciona en 'steal a brainrot'.")
+end
