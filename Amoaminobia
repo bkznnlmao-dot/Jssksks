@@ -1,0 +1,86 @@
+-- Miranda Tween+ Hub estilo imágenes, con mini ventana flotante y autosteal funcional SIEMPRE.
+
+if game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub") then
+    game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub"):Destroy()
+end
+
+local MirandaTweenHub = Instance.new("ScreenGui")
+MirandaTweenHub.Name = "MirandaTweenHub"
+MirandaTweenHub.Parent = game:GetService("CoreGui")
+MirandaTweenHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Mini ventana flotante para abrir/cerrar el menú
+local MiniButton = Instance.new("TextButton")
+MiniButton.Parent = MirandaTweenHub
+MiniButton.BackgroundColor3 = Color3.fromRGB(255,0,0)
+MiniButton.Text = "+"
+MiniButton.TextColor3 = Color3.fromRGB(255,255,255)
+MiniButton.Font = Enum.Font.GothamBold
+MiniButton.TextScaled = true
+MiniButton.Size = UDim2.new(0,40,0,40)
+MiniButton.Position = UDim2.new(0,30,0,160)
+MiniButton.AnchorPoint = Vector2.new(0,0)
+MiniButton.Visible = true
+
+-- Menú principal
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = MirandaTweenHub
+MainFrame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+MainFrame.BorderColor3 = Color3.fromRGB(255,0,0)
+MainFrame.BorderSizePixel = 3
+MainFrame.Position = UDim2.new(0.5, -125, 0.5, -135)
+MainFrame.Size = UDim2.new(0,250,0,250)
+MainFrame.Visible = false
+MainFrame.AnchorPoint = Vector2.new(0,0)
+
+local Corner = Instance.new("UICorner", MainFrame)
+Corner.CornerRadius = UDim.new(0,15)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 4)
+Title.Size = UDim2.new(1, 0, 0, 32)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "MIRANDA TWEEN+"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+local SubTitle = Instance.new("TextLabel")
+SubTitle.Parent = MainFrame
+SubTitle.BackgroundTransparency = 1
+SubTitle.Position = UDim2.new(0, 0, 0, 33)
+SubTitle.Size = UDim2.new(1, 0, 0, 18)
+SubTitle.Font = Enum.Font.Gotham
+SubTitle.Text = "TIKTOK: @mirandacallruim"
+SubTitle.TextColor3 = Color3.fromRGB(255,255,255)
+SubTitle.TextScaled = true
+
+local ESPGodBtn = Instance.new("TextButton")
+ESPGodBtn.Parent = MainFrame
+ESPGodBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPGodBtn.Position = UDim2.new(0.05,0,0.23,0)
+ESPGodBtn.Size = UDim2.new(0.43,0,0,32)
+ESPGodBtn.Font = Enum.Font.GothamBold
+ESPGodBtn.Text = "ESP GOD"
+ESPGodBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPGodBtn.TextScaled = true
+
+local ESPSecretBtn = Instance.new("TextButton")
+ESPSecretBtn.Parent = MainFrame
+ESPSecretBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPSecretBtn.Position = UDim2.new(0.52,0,0.23,0)
+ESPSecretBtn.Size = UDim2.new(0.43,0,0,32)
+ESPSecretBtn.Font = Enum.Font.GothamBold
+ESPSecretBtn.Text = "ESP SECRET"
+ESPSecretBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPSecretBtn.TextScaled = true
+
+local ESPBaseBtn = Instance.new("TextButton")
+ESPBaseBtn.Parent = MainFrame
+ESPBaseBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPBaseBtn.Position = UDim2.new(0.05,0,0.39,0)
+ESPBaseBtn.Size = UDim2.new(0.9,0,0,32)
+ESPBaseBtn.Font = Enum.Font.GothamBold
+ESPBaseBtn.Text = "ESP BASE"
+ESPBaseBtn.TextColor3 =
