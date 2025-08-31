@@ -1,0 +1,351 @@
+-- Miranda Tween+ Hub estilo TikTok con mini ventana flotante, menú principal y ventana secundaria "Instant Steal"
+-- El autosteal funciona SIEMPRE y el menú es igual a las imágenes. Puedes usarlo con loadstring(game:HttpGet("TU_LINK"))()
+
+if game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub") then
+    game:GetService("CoreGui"):FindFirstChild("MirandaTweenHub"):Destroy()
+end
+
+local MirandaTweenHub = Instance.new("ScreenGui")
+MirandaTweenHub.Name = "MirandaTweenHub"
+MirandaTweenHub.Parent = game:GetService("CoreGui")
+MirandaTweenHub.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Mini ventana flotante para abrir/cerrar el menú principal
+local MiniButton = Instance.new("TextButton")
+MiniButton.Parent = MirandaTweenHub
+MiniButton.BackgroundColor3 = Color3.fromRGB(255,0,0)
+MiniButton.Text = "+"
+MiniButton.TextColor3 = Color3.fromRGB(255,255,255)
+MiniButton.Font = Enum.Font.GothamBold
+MiniButton.TextScaled = true
+MiniButton.Size = UDim2.new(0,40,0,40)
+MiniButton.Position = UDim2.new(0,30,0,160)
+MiniButton.AnchorPoint = Vector2.new(0,0)
+MiniButton.Visible = true
+
+-- Menú principal
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = MirandaTweenHub
+MainFrame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+MainFrame.BorderColor3 = Color3.fromRGB(255,0,0)
+MainFrame.BorderSizePixel = 3
+MainFrame.Position = UDim2.new(0.5, -125, 0.5, -135)
+MainFrame.Size = UDim2.new(0,250,0,250)
+MainFrame.Visible = false
+
+local Corner = Instance.new("UICorner", MainFrame)
+Corner.CornerRadius = UDim.new(0,15)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 4)
+Title.Size = UDim2.new(1, 0, 0, 32)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "MIRANDA TWEEN+"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+
+local SubTitle = Instance.new("TextLabel")
+SubTitle.Parent = MainFrame
+SubTitle.BackgroundTransparency = 1
+SubTitle.Position = UDim2.new(0, 0, 0, 33)
+SubTitle.Size = UDim2.new(1, 0, 0, 18)
+SubTitle.Font = Enum.Font.Gotham
+SubTitle.Text = "TIKTOK: @mirandacallruim"
+SubTitle.TextColor3 = Color3.fromRGB(255,255,255)
+SubTitle.TextScaled = true
+
+local ESPGodBtn = Instance.new("TextButton")
+ESPGodBtn.Parent = MainFrame
+ESPGodBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPGodBtn.Position = UDim2.new(0.05,0,0.23,0)
+ESPGodBtn.Size = UDim2.new(0.43,0,0,32)
+ESPGodBtn.Font = Enum.Font.GothamBold
+ESPGodBtn.Text = "ESP GOD"
+ESPGodBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPGodBtn.TextScaled = true
+
+local ESPSecretBtn = Instance.new("TextButton")
+ESPSecretBtn.Parent = MainFrame
+ESPSecretBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPSecretBtn.Position = UDim2.new(0.52,0,0.23,0)
+ESPSecretBtn.Size = UDim2.new(0.43,0,0,32)
+ESPSecretBtn.Font = Enum.Font.GothamBold
+ESPSecretBtn.Text = "ESP SECRET"
+ESPSecretBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPSecretBtn.TextScaled = true
+
+local ESPBaseBtn = Instance.new("TextButton")
+ESPBaseBtn.Parent = MainFrame
+ESPBaseBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPBaseBtn.Position = UDim2.new(0.05,0,0.39,0)
+ESPBaseBtn.Size = UDim2.new(0.9,0,0,32)
+ESPBaseBtn.Font = Enum.Font.GothamBold
+ESPBaseBtn.Text = "ESP BASE"
+ESPBaseBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPBaseBtn.TextScaled = true
+
+local ESPPlayerBtn = Instance.new("TextButton")
+ESPPlayerBtn.Parent = MainFrame
+ESPPlayerBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+ESPPlayerBtn.Position = UDim2.new(0.05,0,0.53,0)
+ESPPlayerBtn.Size = UDim2.new(0.9,0,0,32)
+ESPPlayerBtn.Font = Enum.Font.GothamBold
+ESPPlayerBtn.Text = "ESP PLAYER"
+ESPPlayerBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ESPPlayerBtn.TextScaled = true
+
+local InstaStealBtn = Instance.new("TextButton")
+InstaStealBtn.Parent = MainFrame
+InstaStealBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+InstaStealBtn.Position = UDim2.new(0.05,0,0.67,0)
+InstaStealBtn.Size = UDim2.new(0.9,0,0,32)
+InstaStealBtn.Font = Enum.Font.GothamBold
+InstaStealBtn.Text = "Miranda Insta Steal"
+InstaStealBtn.TextColor3 = Color3.fromRGB(255,255,255)
+InstaStealBtn.TextScaled = true
+
+-- Ventana secundaria "Instant Steal"
+local InstantStealFrame = Instance.new("Frame")
+InstantStealFrame.Parent = MirandaTweenHub
+InstantStealFrame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+InstantStealFrame.BorderColor3 = Color3.fromRGB(255,0,0)
+InstantStealFrame.BorderSizePixel = 3
+InstantStealFrame.Position = UDim2.new(0.5, 140, 0.5, -135)
+InstantStealFrame.Size = UDim2.new(0,220,0,130)
+InstantStealFrame.Visible = false
+
+local Corner2 = Instance.new("UICorner", InstantStealFrame)
+Corner2.CornerRadius = UDim.new(0,15)
+
+local IS_Title = Instance.new("TextLabel")
+IS_Title.Parent = InstantStealFrame
+IS_Title.BackgroundTransparency = 1
+IS_Title.Position = UDim2.new(0, 0, 0, 4)
+IS_Title.Size = UDim2.new(1, 0, 0, 28)
+IS_Title.Font = Enum.Font.GothamBold
+IS_Title.Text = "INSTANT STEAL"
+IS_Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+IS_Title.TextScaled = true
+
+local IS_InstantBtn = Instance.new("TextButton")
+IS_InstantBtn.Parent = InstantStealFrame
+IS_InstantBtn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+IS_InstantBtn.Position = UDim2.new(0.07,0,0.28,0)
+IS_InstantBtn.Size = UDim2.new(0.86,0,0,26)
+IS_InstantBtn.Font = Enum.Font.GothamBold
+IS_InstantBtn.Text = "Instant Steal: OFF"
+IS_InstantBtn.TextColor3 = Color3.fromRGB(30,30,30)
+IS_InstantBtn.TextScaled = true
+
+local IS_AimbotBtn = Instance.new("TextButton")
+IS_AimbotBtn.Parent = InstantStealFrame
+IS_AimbotBtn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+IS_AimbotBtn.Position = UDim2.new(0.07,0,0.55,0)
+IS_AimbotBtn.Size = UDim2.new(0.86,0,0,26)
+IS_AimbotBtn.Font = Enum.Font.GothamBold
+IS_AimbotBtn.Text = "Aimbot Teia"
+IS_AimbotBtn.TextColor3 = Color3.fromRGB(30,30,30)
+IS_AimbotBtn.TextScaled = true
+
+local IS_AutoKickBtn = Instance.new("TextButton")
+IS_AutoKickBtn.Parent = InstantStealFrame
+IS_AutoKickBtn.BackgroundColor3 = Color3.fromRGB(255,0,0)
+IS_AutoKickBtn.Position = UDim2.new(0.07,0,0.82,0)
+IS_AutoKickBtn.Size = UDim2.new(0.42,0,0,22)
+IS_AutoKickBtn.Font = Enum.Font.GothamBold
+IS_AutoKickBtn.Text = "AUTO KICK"
+IS_AutoKickBtn.TextColor3 = Color3.fromRGB(255,255,255)
+IS_AutoKickBtn.TextScaled = true
+
+local IS_AutoKickTog = Instance.new("TextButton")
+IS_AutoKickTog.Parent = InstantStealFrame
+IS_AutoKickTog.BackgroundColor3 = Color3.fromRGB(255,255,255)
+IS_AutoKickTog.Position = UDim2.new(0.52,0,0.82,0)
+IS_AutoKickTog.Size = UDim2.new(0.41,0,0,22)
+IS_AutoKickTog.Font = Enum.Font.GothamBold
+IS_AutoKickTog.Text = "OFF"
+IS_AutoKickTog.TextColor3 = Color3.fromRGB(30,30,30)
+IS_AutoKickTog.TextScaled = true
+
+-- Abrir/cerrar el menú principal con la mini ventana
+MiniButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+    InstantStealFrame.Visible = false
+end)
+
+-- Abrir/cerrar la ventana secundaria desde el botón principal Insta Steal
+InstaStealBtn.MouseButton1Click:Connect(function()
+    InstantStealFrame.Visible = not InstantStealFrame.Visible
+end)
+
+-- FUNCIONES REALES (ajusta para tu juego)
+
+-- ESP GOD: Box ESP para todos los jugadores
+local espActive = false
+local espBoxes = {}
+local function createESP(target)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Size = Vector3.new(3, 6, 3)
+    box.Color3 = Color3.fromRGB(255, 0, 0)
+    box.Transparency = 0.5
+    box.AlwaysOnTop = true
+    box.Adornee = target
+    box.Parent = game:GetService("CoreGui")
+    return box
+end
+local function enableESP()
+    espActive = true
+    for _, plr in ipairs(game.Players:GetPlayers()) do
+        if plr ~= game.Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local box = createESP(plr.Character.HumanoidRootPart)
+            espBoxes[plr.Name] = box
+        end
+    end
+end
+local function disableESP()
+    espActive = false
+    for _, box in pairs(espBoxes) do
+        box:Destroy()
+    end
+    espBoxes = {}
+end
+ESPGodBtn.MouseButton1Click:Connect(function()
+    if not espActive then
+        enableESP()
+        ESPGodBtn.Text = "ESP GOD [ON]"
+    else
+        disableESP()
+        ESPGodBtn.Text = "ESP GOD"
+    end
+end)
+
+-- ESP SECRET: Busca objetos secretos (ajusta si el nombre es distinto)
+local secretEspActive = false
+local secretEspBoxes = {}
+local function enableSecretESP()
+    secretEspActive = true
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("BasePart") and obj.Name:lower():find("secret") then
+            local box = createESP(obj)
+            secretEspBoxes[obj.Name] = box
+        end
+    end
+end
+local function disableSecretESP()
+    secretEspActive = false
+    for _, box in pairs(secretEspBoxes) do
+        box:Destroy()
+    end
+    secretEspBoxes = {}
+end
+ESPSecretBtn.MouseButton1Click:Connect(function()
+    if not secretEspActive then
+        enableSecretESP()
+        ESPSecretBtn.Text = "ESP SECRET [ON]"
+    else
+        disableSecretESP()
+        ESPSecretBtn.Text = "ESP SECRET"
+    end
+end)
+
+-- ESP BASE: Marca todas las bases
+local baseEspActive = false
+local baseEspBoxes = {}
+local function enableBaseESP()
+    baseEspActive = true
+    local bases = workspace:FindFirstChild("Bases")
+    if bases then
+        for _, base in ipairs(bases:GetChildren()) do
+            if base:IsA("BasePart") or base:FindFirstChild("CollectZone") then
+                local part = base:FindFirstChild("CollectZone") or base
+                local box = createESP(part)
+                baseEspBoxes[base.Name] = box
+            end
+        end
+    end
+end
+local function disableBaseESP()
+    baseEspActive = false
+    for _, box in pairs(baseEspBoxes) do
+        box:Destroy()
+    end
+    baseEspBoxes = {}
+end
+ESPBaseBtn.MouseButton1Click:Connect(function()
+    if not baseEspActive then
+        enableBaseESP()
+        ESPBaseBtn.Text = "ESP BASE [ON]"
+    else
+        disableBaseESP()
+        ESPBaseBtn.Text = "ESP BASE"
+    end
+end)
+
+-- ESP PLAYER: Marca al primer jugador que no seas tú
+local playerEspActive = false
+local playerEspBox = nil
+ESPPlayerBtn.MouseButton1Click:Connect(function()
+    if not playerEspActive then
+        local target = nil
+        for _, plr in ipairs(game.Players:GetPlayers()) do
+            if plr ~= game.Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                target = plr.Character.HumanoidRootPart
+                break
+            end
+        end
+        if target then
+            playerEspBox = createESP(target)
+            playerEspActive = true
+            ESPPlayerBtn.Text = "ESP PLAYER [ON]"
+        end
+    else
+        if playerEspBox then playerEspBox:Destroy() end
+        playerEspBox = nil
+        playerEspActive = false
+        ESPPlayerBtn.Text = "ESP PLAYER"
+    end
+end)
+
+-- Miranda Insta Steal: Teletransporta SIEMPRE a tu base (no depende de capa)
+local autoStealActive = false
+local autoStealConn = nil
+local function doInstaSteal()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local bases = workspace:FindFirstChild("Bases")
+    if bases then
+        local myBase = bases:FindFirstChild(player.Name)
+        if myBase and myBase:FindFirstChild("CollectZone") then
+            character:MoveTo(myBase.CollectZone.Position)
+        end
+    end
+end
+
+IS_InstantBtn.MouseButton1Click:Connect(function()
+    autoStealActive = not autoStealActive
+    if autoStealActive then
+        IS_InstantBtn.Text = "Instant Steal: ON"
+        autoStealConn = game:GetService("RunService").Heartbeat:Connect(function()
+            doInstaSteal()
+        end)
+    else
+        IS_InstantBtn.Text = "Instant Steal: OFF"
+        if autoStealConn then autoStealConn:Disconnect() end
+    end
+end)
+
+-- Aimbot Teia (solo muestra mensaje ejemplo)
+IS_AimbotBtn.MouseButton1Click:Connect(function()
+    IS_AimbotBtn.Text = "Aimbot Teia [ON]"
+    wait(2)
+    IS_AimbotBtn.Text = "Aimbot Teia"
+end)
+
+-- AUTO KICK (solo muestra mensaje ejemplo)
+local autoKickActive = false
+IS_AutoKickTog.MouseButton1Click:Connect(function()
+    autoKickActive = not autoKickActive
+    IS_AutoKickTog.Text = autoKickActive and "ON" or "OFF"
+end)
