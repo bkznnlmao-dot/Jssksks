@@ -1,0 +1,60 @@
+local placeId = game.PlaceId
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- ========== Función: Mostrar los brainrots que más dinero dan ==========
+local brainrots = {
+    {name = "Brainrot A", money = 10000},
+    {name = "Brainrot B", money = 5000},
+    {name = "Brainrot C", money = 25000},
+    {name = "Brainrot D", money = 15000}
+}
+
+function ShowTopBrainrots()
+    table.sort(brainrots, function(a, b) return a.money > b.money end)
+    local msg = "Brainrots que más dinero dan:\n"
+    for i, v in ipairs(brainrots) do
+        msg = msg .. i .. ". " .. v.name .. " - $" .. v.money .. "\n"
+    end
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "senko's hub 💙",
+            Duration = 10,
+            Text = msg
+        })
+    end)
+end
+
+-- ========== Función: Autokick al robar brainrot ==========
+function AutoKickBrainrot()
+    LocalPlayer:Kick("Expulsado automáticamente por robar el brainrot.")
+end
+-- Ejemplo de conexión al evento real (debes adaptarlo a tu juego)
+-- brainrotStealEvent.OnClientEvent:Connect(AutoKickBrainrot)
+
+-- ========== Menú de consola ==========
+local function showMenu()
+    print("senko's hub 💙 Menu:")
+    print("1. Mostrar brainrots que más dinero dan (ShowTopBrainrots())")
+    print("2. Activar autokick manual (AutoKickBrainrot())")
+end
+
+-- ========== Carga de hacks según el juego ==========
+if placeId == 109983668079237 or placeId == 96342491571673 or placeId == 128762245270197 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/S4/refs/heads/main/Stel"))()
+elseif placeId == 126884695634066 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Ninja10908/Brok/refs/heads/main/Main-grow"))()
+else
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "senko's hub 💙",
+            Duration = 10,
+            Text = "grow a garden \n steal a brainrot"
+        })
+    end)
+    showMenu()
+end
+
+-- Ejemplo de uso manual (puedes borrar si usas menú visual)
+--ShowTopBrainrots()
+--AutoKickBrainrot()
